@@ -10,3 +10,42 @@ const logo = require('asciiart-logo');
 // =============================================================
 let app = express();
 let PORT = 3000;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Starts the server to begin listening on defined port
+// =============================================================
+app.listen(PORT, function() {
+    console.log(
+        logo({
+           name: 'Smart Book App',
+           font: 'Big Money-ne',
+           linechars: 10,
+           padding: 2,
+           margin: 3,
+           borderColor: 'cyan',
+           logoColor: 'bold-cyan',
+           textColor: 'bold-green',
+        })
+        .emptyLine()
+        .right('version 1.0')
+        .emptyLine()
+        .center('Take notes/ Organize your thoughts easily')
+        .render()
+    );
+  console.log("App listening on PORT " + PORT);
+});
