@@ -11,6 +11,13 @@ const logo = require('asciiart-logo');
 let app = express();
 let PORT = 3000;
 
+const db = [];
+
+console.log(db);
+
+// static code to present user with the static html files
+app.use(express.static('public'));
+
 
 
 
