@@ -36,11 +36,51 @@ app.get("/notes", function(req, res) {
               data = JSON.parse(data);
               res.json(data);
           }
-          console.log('this is the readme file');
       });
   });
 
+  //route to save user input to the database file
+  app.post('/api/notes', (req, res) => {
+    const {title, text} = req.body
 
+    fs.readFile(path.join(__dirname, "/db/db.json"), 'utf-8', (err, data) => {
+        if(err){
+            console.log(err);
+        }
+    
+        if(data){
+            data = JSON.parse(data);
+            data.push({
+                title: title,
+                text: text,
+                id: Date.now()
+            });
+            fs.writeFile(path.join(__dirname, '/db/db.json'), JSON.stringify(data), (err) => {
+                if(err) {
+                    console.log("Error writing to file", err);
+                }
+                res.json(data);
+                res.end();
+            });
+        }else{
+            data =[{
+                title: title,
+                text: text,
+                id: Date.now()
+            }];
+            fs.writeFile(path.join(__dirname, '/db/db.json'), JSON.stringify(data), (err) => {
+                if(err) {
+                    console.log("Error writing to file", err);
+                }
+                res.json(data);
+                res.end();
+            });
+            res.send(false);
+            res.end();
+        }
+        console.log('testing this section of code');
+    });
+})
 
 
 
