@@ -40,6 +40,7 @@ app.get("/notes", function(req, res) {
   });
 
   //route to save user input to the database file
+  // =============================================================
   app.post('/api/notes', (req, res) => {
     const {title, text} = req.body
 
@@ -81,22 +82,46 @@ app.get("/notes", function(req, res) {
         console.log('testing this section of code');
     });
 })
+ 
+// functionality to delete notes
+// =============================================================
+app.delete('/api/notes/:id', (req,res) => {
+    let { id } = req.params;
+    if(id) {
+        id = parseInt(id);
+        fs.readFile(path.join(__dirname, '/db/db.json'),'utf-8',(err, data) => {
+            if(err){
+                console.log("Error reading file", err);
+            }
+            if(data){
+                data = JSON.parse(data);
+                data = data.filter( d => d.id !== id);
+                fs.writeFile(path.join(__dirname, "/db/db.json"), JSON.stringify(data), (err) => {
+                    if(err){
+                        console.log(err);
+                    }
+                });
+                res.json(data);
+                res.end();
+            } else {
+                res.send(false);
+                res.end();
+            }
+        });
+    }
+});
 
-
-
-
-
-
-
-
-
-
-
-
+// redirects user to index.html if searched page is not found
+// =============================================================
+app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "public/index.html"));
+  });
 
 // Starts the server to begin listening on defined port
 // =============================================================
 app.listen(PORT, function() {
+    // prints app name on server startup
+    // =============================================================
     console.log(
         logo({
            name: 'Smart Book App',
