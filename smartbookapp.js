@@ -18,7 +18,27 @@ console.log(db);
 // static code to present user with the static html files
 app.use(express.static('public'));
 
+// Routes
+// =============================================================
 
+// Basic route that sends the user first to the AJAX Page
+app.get("/notes", function(req, res) {
+    res.sendFile(path.join(__dirname, "public/notes.html"));
+  });
+  
+  app.get("/api/notes", function(req, res) {
+      fs.readFile(path.join(__dirname, "/db/db.json"), 'utf-8', (err, data) => {
+          if(err){
+              console.log(err);
+          }
+      
+          if(data){
+              data = JSON.parse(data);
+              res.json(data);
+          }
+          console.log('this is the readme file');
+      });
+  });
 
 
 
