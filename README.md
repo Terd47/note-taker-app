@@ -1,5 +1,5 @@
 
-# Smart Book App
+# Note Taker App
 
 ## Profile and Email
 
@@ -32,7 +32,7 @@ terdlar@gmail.com
   terd47
 
 ## Description:             
-  The smart book app is an application which supports the note taking from the user with functionality to save, retrieve, store and delete previously taken notes. It has a simple User Interface for convinience to all users. It can be used to take notes, save thoughs and ideas or saving TODOs which can be easiy accessed later. It is Easy and reliable.
+  The Note Taker app is an application which supports note taking from the user with functionality to save, retrieve, store and delete previously taken notes. It has a simple User Interface for convinience to all users. It can be used to take notes, save thoughs and ideas or saving TODOs which can be easiy accessed later. It is Easy and reliable.
 
 ## Installation:   
 The following command should be run to install necessary dependencies  
