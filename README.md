@@ -14,6 +14,8 @@ terdlar@gmail.com
 
 -[Installation](#installation)
 
+-[Technologies Used](#technologies)
+
 -[Usage](#usage)
 
 -[Licenses](#licenses)
@@ -37,7 +39,10 @@ The following command should be run to install necessary dependencies
    ```         
    to install this appliaction, use npm install smart-book-app
    ```
-
+## Technologies
+   ```
+   HTML, CSS, JavaScript, Node.js, Heroku, Express.js, OOP principles.
+   ```
 ## Usage:              
   Usage of this application is totally and open to anyone and everyone for both commercial and non commercial use
 
