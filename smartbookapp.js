@@ -6,42 +6,48 @@ const path = require("path");
 const util =  require('util');
 const logo = require('asciiart-logo');
 
-// Sets up the Express App with port number
+// Sets up the Express App and default port
 // =============================================================
 let app = express();
 let PORT = process.env.PORT || 3000;
+
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const db = [];
 
 console.log(db);
 
-// static code to present user with the static html files
+// static code to present user with the static html pages
 app.use(express.static('public'));
 
 // Routes
 // =============================================================
 
 // Basic route that sends the user first to the AJAX Page
+// =============================================================
 app.get("/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "public/notes.html"));
-  });
-  
-  app.get("/api/notes", function(req, res) {
-      fs.readFile(path.join(__dirname, "/db/db.json"), 'utf-8', (err, data) => {
-          if(err){
-              console.log(err);
-          }
-      
-          if(data){
-              data = JSON.parse(data);
-              res.json(data);
-          }
-      });
-  });
-
-  //route to save user input to the database file
-  // =============================================================
-  app.post('/api/notes', (req, res) => {
+  res.sendFile(path.join(__dirname, "public/notes.html"));
+});
+//route to read notes from database file
+// =============================================================
+app.get("/api/notes", function(req, res) {
+    fs.readFile(path.join(__dirname, "/db/db.json"), 'utf-8', (err, data) => {
+        if(err){
+            console.log(err);
+        }
+    
+        if(data){
+            data = JSON.parse(data);
+            res.json(data);
+        }
+        console.log('reading from database');
+    });
+});
+//store notes to database file
+// =============================================================
+app.post('/api/notes', (req, res) => {
     const {title, text} = req.body
 
     fs.readFile(path.join(__dirname, "/db/db.json"), 'utf-8', (err, data) => {
@@ -82,8 +88,7 @@ app.get("/notes", function(req, res) {
         console.log('testing this section of code');
     });
 })
- 
-// functionality to delete notes
+// delete notes
 // =============================================================
 app.delete('/api/notes/:id', (req,res) => {
     let { id } = req.params;
@@ -110,18 +115,16 @@ app.delete('/api/notes/:id', (req,res) => {
         });
     }
 });
-
-// redirects user to index.html if searched page is not found
+// redirect user to index.html if searched page is not found
 // =============================================================
 app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "public/index.html"));
-  });
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
 
-// Starts the server to begin listening on defined port
+// Starts the server to begin listening
 // =============================================================
 app.listen(PORT, function() {
-    // prints app name on server startup
-    // =============================================================
+    // display app logo on server dashboard
     console.log(
         logo({
            name: 'Smart Book App',
