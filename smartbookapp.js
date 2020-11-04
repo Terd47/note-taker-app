@@ -9,7 +9,7 @@ const logo = require('asciiart-logo');
 // Sets up the Express App with port number
 // =============================================================
 let app = express();
-let PORT = 3000;
+let PORT = process.env.PORT || 3000;
 
 const db = [];
 
